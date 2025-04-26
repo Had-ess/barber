@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">barber</string>
+    <string name="cancel_confirmation_title">Cancel Appointment</string>
+    <string name="date_label">Date:</string>
+    <string name="time_label">Time:</string>
+    <string name="status_label">Status:</string>
+    <string name="cancel_warning_message">Are you sure you want to cancel this appointment? Cancellations less than 24 hours before the appointment may incur a fee.</string>
+    <string name="confirm_cancel">Confirm Cancel</string>
+    <string name="go_back">Go Back</string>
+    <string name="my_appointments">My Appointments</string>
+    <string name="appointments_list_description">List of your upcoming barber appointments</string>
+    <string name="no_appointments_found">You don\'t have any appointments yet</string>
 </resources>

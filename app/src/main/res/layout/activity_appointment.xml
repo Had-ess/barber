@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <!-- Optional: Add a title for better context -->
+    <TextView
+        android:id="@+id/titleAppointments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_appointments"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:importantForAccessibility="yes"
+        tools:ignore="HardcodedText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAppointments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:clipToPadding="false"
+        android:contentDescription="@string/appointments_list_description"
+        tools:listitem="@layout/item_appointment" />
+
+    <!-- Optional: Empty state view -->
+    <TextView
+        android:id="@+id/textEmptyState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_appointments_found"
+        android:gravity="center"
+        android:visibility="gone"
+        android:importantForAccessibility="yes" />
+
+</LinearLayout>
