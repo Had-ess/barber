@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "446880425532",
+    "project_id": "taskmanagerapp-e1e6e",
+    "storage_bucket": "taskmanagerapp-e1e6e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446880425532:android:936ecbf13925b63b2a8539",
+        "android_client_info": {
+          "package_name": "com.youssef.barber"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATXOdX_B17OCH8HGn4SVhRQ-0NpiSmLP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
