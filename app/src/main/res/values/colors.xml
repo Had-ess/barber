@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base Colors (Existing) -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorBackground">#F5F5F5</color>
@@ -10,4 +11,46 @@
     <color name="colorTextSecondary">#757575</color>
     <color name="colorWarning">#FF5722</color>
     <color name="colorError">#F44336</color>
+
+    <!-- New Additions for Barber App -->
+
+    <!-- Status Colors -->
+    <color name="colorSuccess">#4CAF50</color>
+    <color name="colorInfo">#2196F3</color>
+
+    <!-- Special UI Elements -->
+    <color name="colorBarberPoleRed">#E53935</color>  <!-- Classic barber pole red -->
+    <color name="colorBarberPoleBlue">#1E88E5</color> <!-- Classic barber pole blue -->
+    <color name="colorGoldenAccent">#FFD700</color>    <!-- For premium services -->
+
+    <!-- Background Variants -->
+    <color name="colorSurface">#FFFFFF</color>         <!-- For cards/dialogs -->
+    <color name="colorBackgroundDark">#121212</color>  <!-- For dark mode -->
+
+    <!-- Text Variants -->
+    <color name="colorTextOnPrimary">#FFFFFF</color>   <!-- Text on primary color -->
+    <color name="colorTextHint">#BDBDBD</color>        <!-- Hint text -->
+    <color name="colorTextDisabled">#EEEEEE</color>
+    <color name="notification_text_color">#000000</color>
+    <color name="notification_accent_color">#FF5722</color>
+
+
+    <!-- Border/Divider Colors -->
+    <color name="colorDivider">#E0E0E0</color>
+    <color name="colorBorderLight">#EEEEEE</color>
+
+    <!-- Special App-Specific Colors -->
+    <color name="colorAppointmentBooked">#FFECB3</color> <!-- Pastel yellow -->
+    <color name="colorAppointmentCompleted">#C8E6C9</color> <!-- Pastel green -->
+    <color name="colorAppointmentCancelled">#FFCDD2</color> <!-- Pastel red -->
+
+    <!-- Notification Colors -->
+    <color name="colorNotificationImportant">#FFF176</color> <!-- Attention-grabbing -->
+    <color name="colorNotificationNormal">#B3E5FC</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
 </resources>

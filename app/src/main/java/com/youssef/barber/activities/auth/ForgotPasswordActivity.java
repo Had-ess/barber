@@ -1,5 +1,6 @@
 package com.youssef.barber.activities.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -31,10 +32,16 @@ public class ForgotPasswordActivity extends AppCompatActivity{
         setContentView(R.layout.activity_forgot_password);
 
         mAuth = FirebaseAuth.getInstance();
-
         editTextEmail = findViewById(R.id.editTextEmail);
         buttonResetPassword = findViewById(R.id.buttonResetPassword);
         progressBar = findViewById(R.id.progressBar);
+
+        Button btnBackToLogin = findViewById(R.id.btnBackToLogin);
+
+        btnBackToLogin.setOnClickListener(v -> {
+            startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
+            finish();
+        });
 
         buttonResetPassword.setOnClickListener(new View.OnClickListener(){
             @Override

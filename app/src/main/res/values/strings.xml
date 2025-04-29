@@ -1,13 +1,79 @@
 <resources>
-    <string name="app_name">barber</string>
-    <string name="cancel_confirmation_title">Cancel Appointment</string>
+    <!-- App Basics -->
+    <string name="app_name">Barber</string>
+    <string name="default_notification_channel_id">barber_app_notifications</string>
+
+    <!-- Common Labels -->
     <string name="date_label">Date:</string>
     <string name="time_label">Time:</string>
     <string name="status_label">Status:</string>
-    <string name="cancel_warning_message">Are you sure you want to cancel this appointment? Cancellations less than 24 hours before the appointment may incur a fee.</string>
-    <string name="confirm_cancel">Confirm Cancel</string>
-    <string name="go_back">Go Back</string>
+    <string name="price_label">Price:</string>
+    <string name="duration_label">Duration:</string>
+    <string name="barber_label">Barber:</string>
+    <string name="service_label">Service:</string>
+
+    <!-- Appointment Management -->
     <string name="my_appointments">My Appointments</string>
     <string name="appointments_list_description">List of your upcoming barber appointments</string>
     <string name="no_appointments_found">You don\'t have any appointments yet</string>
+    <string name="book_new_appointment">Book New Appointment</string>
+    <string name="appointment_details">Appointment Details</string>
+
+    <!-- Cancellation Flow -->
+    <string name="cancel_confirmation_title">Cancel Appointment</string>
+    <string name="cancel_warning_message">Are you sure you want to cancel this appointment? Cancellations less than 24 hours before the appointment may incur a fee.</string>
+    <string name="confirm_cancel">Confirm Cancel</string>
+    <string name="go_back">Go Back</string>
+    <string name="cancellation_success">Appointment cancelled successfully</string>
+    <string name="cancellation_fee_applied">Cancellation fee applied: %1$s</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_title_new">New Appointment</string>
+    <string name="notification_title_reminder">Appointment Reminder</string>
+    <string name="notification_title_cancelled">Appointment Cancelled</string>
+    <string name="notification_message_reminder">You have an appointment tomorrow at %1$s</string>
+    <string name="notification_tap_to_view">Tap to view details</string>
+
+    <!-- Booking Flow -->
+    <string name="select_service">Select Service</string>
+    <string name="select_barber">Select Barber</string>
+    <string name="select_date_time">Select Date &amp; Time</string>
+    <string name="confirm_booking">Confirm Booking</string>
+    <string name="booking_success">Booking confirmed for %1$s at %2$s</string>
+
+    <!-- Service Types -->
+    <string name="service_haircut">Haircut</string>
+    <string name="service_shave">Shave</string>
+    <string name="service_beard_trim">Beard Trim</string>
+    <string name="service_hair_wash">Hair Wash</string>
+    <string name="service_hair_coloring">Hair Coloring</string>
+
+    <!-- Status Messages -->
+    <string name="status_confirmed">Confirmed</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_cancelled">Cancelled</string>
+    <string name="status_pending">Pending</string>
+
+    <!-- Error Messages -->
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="error_time_slot_taken">This time slot is already booked. Please choose another time.</string>
+    <string name="error_required_field">This field is required</string>
+
+    <!-- Empty States -->
+    <string name="empty_services">No services available</string>
+    <string name="empty_barbers">No barbers available</string>
+    <string name="empty_time_slots">No available time slots</string>
+
+    <!-- Action Buttons -->
+    <string name="action_edit">Edit</string>
+    <string name="action_reschedule">Reschedule</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
+    <string name="action_done">Done</string>
+
+    <!-- Format Strings -->
+    <string name="format_date_time">%1$s at %2$s</string>
+    <string name="format_duration_minutes">%1$d mins</string>
+    <string name="format_price">$%1$.2f</string>
+    <string name="barber_photo">Barber profile photo</string>
 </resources>

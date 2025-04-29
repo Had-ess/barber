@@ -2,25 +2,69 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Required permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- You already had this -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Barber"
-        tools:targetApi="31">
+        android:theme="@style/Theme.BarberManagement">
+
+        <!-- Splash Activity -->
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name="com.youssef.barber.activities.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- Auth Activities -->
+        <activity android:name=".activities.auth.LoginActivity" />
+        <activity android:name=".activities.auth.RegisterActivity" />
+        <activity android:name=".activities.auth.ForgotPasswordActivity" />
+        <activity android:name=".activities.auth.ProfileActivity" />
+        <activity android:name=".activities.auth.ChangePasswordActivity" />
+
+        <!-- Main Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!-- Customer Activities -->
+        <activity android:name=".activities.customer.BookingActivity" />
+        <activity android:name=".activities.customer.AppointmentsActivity" />
+        <activity android:name=".activities.customer.CancelAppointmentActivity" />
+        <activity android:name=".activities.customer.SlotSelectionActivity" />
+
+        <!-- Admin/Barber Activities -->
+        <activity android:name=".activities.admin.BarberAdminActivity" />
+        <activity android:name=".activities.admin.ManageSlotsActivity" />
+        <activity android:name=".activities.admin.StatusActivity" />
+
+        <!-- Firebase Services -->
+        <service
+            android:name=".services.NotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimary" />
+    </application>
 </manifest>

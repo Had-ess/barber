@@ -1,6 +1,8 @@
 package com.youssef.barber.activities.customer;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -61,7 +63,7 @@ public class BookingActivity extends AppCompatActivity implements OnSlotSelected
     private void loadAvailableSlots() {
         progressBar.setVisibility(View.VISIBLE);
         databaseReference.orderByChild("available").equalTo(true)
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         progressBar.setVisibility(View.GONE);
@@ -79,9 +81,16 @@ public class BookingActivity extends AppCompatActivity implements OnSlotSelected
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         progressBar.setVisibility(View.GONE);
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            if (progressBar.getVisibility() == View.VISIBLE) {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(BookingActivity.this, "Loading took too long. Please try again.", Toast.LENGTH_SHORT).show();
+                            }
+                        }, 10000);
                         Toast.makeText(BookingActivity.this, "Failed to load slots", Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 
     private void setupButtonListener() {

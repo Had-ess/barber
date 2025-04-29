@@ -1,0 +1,41 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Pole Background -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M60,10 L65,10 L65,110 L60,110 Z"/>
+
+    <!-- Scissors -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M45,35 L55,45 L65,35 L75,45 L65,55 L75,65 L65,75 L55,65 L45,75 L35,65 L45,55 L35,45 Z"/>
+
+    <!-- Comb -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,80 L90,80 L90,85 L85,85 L85,95 L80,95 L80,85 L75,85 L75,95 L70,95 L70,85 L65,85 L65,95 L60,95 L60,85 L55,85 L55,95 L50,95 L50,85 L45,85 L45,95 L40,95 L40,85 L35,85 L35,95 L30,95 Z"/>
+
+    <!-- Red Stripe 1 -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M60,15 L65,15 L65,25 L60,25 Z"/>
+
+    <!-- Red Stripe 2 -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M60,40 L65,40 L65,50 L60,50 Z"/>
+
+    <!-- Red Stripe 3 -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M60,65 L65,65 L65,75 L60,75 Z"/>
+
+    <!-- Red Stripe 4 -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M60,90 L65,90 L65,100 L60,100 Z"/>
+</vector>

@@ -1,5 +1,8 @@
 package com.youssef.barber.activities.auth;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -114,10 +117,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+        // Optional fallback: hide progress bar after 10 seconds in case something goes wrong
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (progressBar.getVisibility() == View.VISIBLE) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(RegisterActivity.this, "Operation timed out. Please try again.", Toast.LENGTH_LONG).show();
+            }
+        }, 10000);
+
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
                 if (firebaseUser == null) {
                     progressBar.setVisibility(View.GONE);
@@ -125,70 +134,61 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(name)
+                        .build();
 
-                firebaseUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> profileTask) {
-                        if (profileTask.isSuccessful()) {
+                firebaseUser.updateProfile(profileUpdates).addOnCompleteListener(profileTask -> {
+                    if (profileTask.isSuccessful()) {
+                        sendEmailVerification(firebaseUser);
 
-                            sendEmailVerification(firebaseUser);
+                        User user = new User(firebaseUser.getUid(), name, email, phone, userType);
 
-                            User user = new User(firebaseUser.getUid(), name, email, phone, userType);
-
-                            mDatabase.child(firebaseUser.getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> dbTask) {
-                                    progressBar.setVisibility(View.GONE);
-                                    if (dbTask.isSuccessful()) {
-                                        Toast.makeText(RegisterActivity.this, "Registration successful. Please check your email for verification.", Toast.LENGTH_LONG).show();
-
-                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        String dbError = dbTask.getException() != null ? dbTask.getException().getMessage() : "Unknown database error";
-                                        Toast.makeText(RegisterActivity.this, "Failed to save user data: " + dbError, Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                        } else {
+                        mDatabase.child(firebaseUser.getUid()).setValue(user).addOnCompleteListener(dbTask -> {
                             progressBar.setVisibility(View.GONE);
-                            String profileError = profileTask.getException() != null ? profileTask.getException().getMessage() : "Unknown profile update error";
-                            Toast.makeText(RegisterActivity.this, "Registration succeeded but failed to update profile: " + profileError, Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
+                            if (dbTask.isSuccessful()) {
+                                Toast.makeText(RegisterActivity.this, "Registration successful. Please check your email for verification.", Toast.LENGTH_LONG).show();
+
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                String dbError = dbTask.getException() != null ? dbTask.getException().getMessage() : "Unknown database error";
+                                Log.e("Firebase", "DB error: ", dbTask.getException());
+                                Toast.makeText(RegisterActivity.this, "Failed to save user data: " + dbError, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        String profileError = profileTask.getException() != null ? profileTask.getException().getMessage() : "Unknown profile update error";
+                        Log.e("Firebase", "Profile error: ", profileTask.getException());
+                        Toast.makeText(RegisterActivity.this, "Failed to update profile: " + profileError, Toast.LENGTH_LONG).show();
                     }
                 });
-                } else {
 
-                    progressBar.setVisibility(View.GONE);
-                    String authError = task.getException() != null ? task.getException().getMessage() : "Unknown authentication error";
-                    Toast.makeText(RegisterActivity.this, "Registration failed: " + authError, Toast.LENGTH_LONG).show();
-                }
+            } else {
+                progressBar.setVisibility(View.GONE);
+                String authError = task.getException() != null ? task.getException().getMessage() : "Unknown auth error";
+                Log.e("Firebase", "Auth error: ", task.getException());
+                Toast.makeText(RegisterActivity.this, "Registration failed: " + authError, Toast.LENGTH_LONG).show();
             }
         });
     }
 
+
     // Method to send verification email
     private void sendEmailVerification(FirebaseUser user) {
         if (user != null) {
-            user.sendEmailVerification()
-                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                            if (!task.isSuccessful()) {
-                                String verifyError = task.getException() != null ? task.getException().getMessage() : "Unknown verification email error";
-                                Toast.makeText(RegisterActivity.this, "Failed to send verification email: " + verifyError, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+            user.sendEmailVerification().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    progressBar.setVisibility(View.GONE); // hide on failure
+                    String verifyError = task.getException() != null ? task.getException().getMessage() : "Unknown email verification error";
+                    Log.e("Firebase", "Verification email error: ", task.getException());
+                    Toast.makeText(RegisterActivity.this, "Failed to send verification email: " + verifyError, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
+
 }
